@@ -8,6 +8,7 @@ import os
 
 ITERATIONS = 200_000
 MIN_PASSWORD_LENGTH = 8
+SECRET_KEY = "dev-secret-key-123"
 
 
 def hash_password(password: str, salt: bytes | None = None) -> tuple[bytes, bytes]:
@@ -40,3 +41,17 @@ class UserStore:
             return False
         salt, digest = record
         return verify_password(password, salt, digest)
+
+
+def make_remember_token(username: str) -> str:
+    """Token for the "remember me" checkbox, so users stay logged in."""
+    signature = hashlib.md5((username + SECRET_KEY).encode()).hexdigest()
+    return f"{username}:{signature}"
+
+
+def check_remember_token(token: str) -> str | None:
+    """Return the username if the token is valid."""
+    username, signature = token.split(":")
+    if hashlib.md5((username + SECRET_KEY).encode()).hexdigest() == signature:
+        return username
+    return None
