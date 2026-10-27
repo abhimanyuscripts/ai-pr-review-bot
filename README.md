@@ -8,7 +8,12 @@ An AI automation that reviews every pull request on GitHub automatically. When a
 
 ## Demo
 
-See the bot's comments on the demo pull requests in the [Pull requests tab](../../pulls?q=is%3Apr).
+| Pull request | What changed | Bot's verdict |
+|---|---|---|
+| [#1 Remember-me login tokens](https://github.com/abhimanyuscripts/ai-pr-review-bot/pull/1) | Auth change with a hardcoded key, MD5 signature, no expiry, no tests (intentionally risky) | 🔴 High risk, 4 line-level findings with fixes and suggested tests |
+| [#2 Contributing guide](https://github.com/abhimanyuscripts/ai-pr-review-bot/pull/2) | Documentation only | 🟢 Low risk, no issues |
+
+Open either PR to see the full review comment and the `risk:` label the bot applied.
 
 ## How it works
 
